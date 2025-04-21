@@ -1,0 +1,21 @@
+FROM postgres:latest
+
+USER root
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    build-essential \
+    curl \
+    git \
+    postgresql-server-dev-17 \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN git clone --branch v1.6.0 https://github.com/fboulnois/pg_uuidv7.git /usr/src/pg_uuidv7 \
+    && cd /usr/src/pg_uuidv7 \
+    && make clean all \
+    && make install \
+    && rm -rf /usr/src/pg_uuidv7
+
+
+USER postgres

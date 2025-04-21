@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    // REST Reactive
+    implementation("io.quarkus:quarkus-rest")
+    implementation("io.quarkus:quarkus-rest-jackson")
+    // REST Client
+    implementation("io.quarkus:quarkus-rest-client-jackson")
+    // Hibernate Validator
+    implementation("io.quarkus:quarkus-hibernate-validator")
+    // Hibernate JSON-B
+    implementation("io.quarkus:quarkus-jsonb")
+    // Hibernate ORM
+    implementation("io.quarkus:quarkus-hibernate-orm")
+    // Hibernate Reactive Panache
+    implementation("io.quarkus:quarkus-hibernate-reactive-panache")
+    // PostgreSQL
+    implementation("io.quarkus:quarkus-reactive-pg-client")
+    // Flyway
+    implementation("io.quarkus:quarkus-flyway")
+    implementation("io.quarkus:quarkus-jdbc-postgresql")
+    // CDI
+    implementation("io.quarkus:quarkus-arc")
+    implementation("io.quarkus:quarkus-elytron-security")
+    implementation("io.quarkus:quarkus-security-jpa-reactive")
+    // Auth
+    implementation("io.quarkus:quarkus-smallrye-jwt")
+    implementation("io.quarkus:quarkus-smallrye-jwt-build")
+    // Health Check
+    implementation("io.quarkus:quarkus-smallrye-health")
+    // YAML
+    implementation("io.quarkus:quarkus-config-yaml")
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    testCompileOnly("org.projectlombok:lombok:1.18.30")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
+
+    // MapStruct
+    implementation("org.mapstruct:mapstruct:1.6.3")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+
+    // Test dependencies
+    testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation("io.rest-assured:rest-assured")
+}
+
+group 'com.docuffice'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
